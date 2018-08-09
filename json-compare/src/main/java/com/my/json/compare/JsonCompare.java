@@ -1,13 +1,35 @@
 package com.my.json.compare;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.my.json.parse.JsonHelper;
+import com.my.json.parse.JsonParse;
+
 public class JsonCompare {
+	
+	public static List<String> compare(File superSet,File subSet) throws MalformedURLException, IOException, URISyntaxException{
+		return compare(
+				JsonParse.getJsonObject(JsonHelper.getFileContent(superSet)).get(), 
+				JsonParse.getJsonObject(JsonHelper.getFileContent(subSet)).get());
+		
+	}
+	
+	public static List<String> compare(Optional<String> superSet,Optional<String> subSet){
+		return compare(
+				JsonParse.getJsonObject(superSet), 
+				JsonParse.getJsonObject(subSet));
+		
+	}
 	
 	public static List<String> compare(JSONArray superSet,JSONArray subSet){
 		
@@ -52,7 +74,14 @@ public class JsonCompare {
 		
 		if(compare(superSet.keySet(),subSet.keySet())) {
 			subSet.keySet().stream().forEach(key->{
-				results.addAll(compare(superSet.get(key),subSet.get(key)));
+				//System.out.println(superSet.toString());
+				List<String> expectedResults = compare(superSet.get(key),subSet.get(key));
+				if(!expectedResults.isEmpty()) {
+					expectedResults.add(superSet.toString(2));
+					expectedResults.add(subSet.toString(2));
+					results.addAll(expectedResults);
+				}
+				
 			});
 		}
 		
@@ -70,7 +99,7 @@ public class JsonCompare {
 			results.addAll(compare((JSONArray)superSet, (JSONArray)subSet));
 		}else {
 			if(!superSet.equals(subSet)) {
-				results.add("Expected "+subSet.toString()+"But received "+superSet.toString());
+				results.add("Expected "+subSet.toString()+" But received "+superSet.toString());
 			}
 		}
 		

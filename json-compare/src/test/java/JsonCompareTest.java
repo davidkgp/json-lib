@@ -15,16 +15,9 @@ public class JsonCompareTest {
 	
 	@Test
 	public void testJsonCompare() throws MalformedURLException, IOException, URISyntaxException {
-		JsonCompare.compare(JsonParse.getJsonObject(getFileContent(new File("src\\test\\resources\\superSet2.json"))).get(), JsonParse.getJsonObject(getFileContent(new File("src\\test\\resources\\subSet2.json"))).get()).forEach(System.out::println);
+		JsonCompare.compare(
+				new File("src\\test\\resources\\superSet2.json"), 
+				new File("src\\test\\resources\\subSet2.json")).forEach(System.out::println);
 	}
 	
-	public Optional<String> getFileContent(File fileObj)
-			throws MalformedURLException, IOException, URISyntaxException {
-
-		return Optional.ofNullable(fileObj.exists() && fileObj.isFile() && fileObj.canRead()
-				? new String(Files.readAllBytes(Paths.get(fileObj.toURI())))
-				: null);
-
-	}
-
 }

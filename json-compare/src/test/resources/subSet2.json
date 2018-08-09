@@ -3,7 +3,7 @@
 	"lastName": "Mouse",
 	"address": {
 		"addressLine1": "1026YV",
-		"addressLine2": "Arjenstraat"
+		"addressLine2": true
 	},
 	"bestFriends": [
 		{
