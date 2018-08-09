@@ -1,0 +1,56 @@
+{
+	"firstName": "Mickey",
+	"lastName": "Mouse",
+	"address": {
+		"addressLine1": "1026YV",
+		"addressLine2": "Arjenstraat"
+	},
+	"bestFriends": [
+		{
+			"firstName": "Scooby",
+			"lastName": "Dooby",
+			"address": {
+				"addressLine1": "LA",
+				"addressLine2": "Hollywood"
+			}
+		},
+		{
+			"firstName": "Scrooge",
+			"lastName": "McDuck",
+			"address": {
+				"addressLine1": "LA",
+				"addressLine2": "Hollywood"
+			}
+		},
+		{
+			"firstName": "Daphne",
+			"lastName": "Helga",
+			"address": {
+				"addressLine1": "LA",
+				"addressLine2": "Hollywood"
+			}
+		}
+	],
+	"parentDetails": {
+		"fatherName": "Dave Roger",
+		"motherName": "Teri Wig"
+	},
+	"labParterDetails": {
+		"labPartner1": {
+			"firstName": "Deb",
+			"lastName": "Laxman",
+			"address": {
+				"addressLine1": "Amta",
+				"addressLine2": "West Bengal"
+			}
+		},
+		"labPartner2": {
+			"firstName": "Sanan",
+			"lastName": "Prakash",
+			"address": {
+				"addressLine1": "Hoogly",
+				"addressLine2": "West Bengal"
+			}
+		}
+	}
+}
