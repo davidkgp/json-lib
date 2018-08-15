@@ -12,7 +12,7 @@ public class RuleConfig {
 	}};
 	
 	public static Class getRule(String type) {
-		return type==null || (type!=null && ruleConfigs.get(type)!=null)?ruleConfigs.get(type):getDefaultRule();
+		return type!=null && ruleConfigs.get(type)!=null?ruleConfigs.get(type):getDefaultRule();
 	}
 	
 	public static Class getDefaultRule() {
