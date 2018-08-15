@@ -12,22 +12,29 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.my.json.compare.rules.RuleConfig;
+import com.my.json.compare.rules.interfaces.ComparisionRule;
 import com.my.json.parse.JsonHelper;
 import com.my.json.parse.JsonParse;
 
 public class JsonCompare {
 	
-	public static List<String> compare(File superSet,File subSet) throws MalformedURLException, IOException, URISyntaxException{
+	private static ComparisionRule compRule;
+	
+	
+	public static List<String> compare(File superSet,File subSet,String compRule) throws MalformedURLException, IOException, URISyntaxException, InstantiationException, IllegalAccessException{
+		JsonCompare.compRule = (ComparisionRule) RuleConfig.getRule(compRule).newInstance();
 		return compare(
 				JsonParse.getJsonObject(JsonHelper.getFileContent(superSet)).get(), 
 				JsonParse.getJsonObject(JsonHelper.getFileContent(subSet)).get());
 		
 	}
 	
-	public static List<String> compare(Optional<String> superSet,Optional<String> subSet){
+	public static List<String> compare(Optional<String> superSet,Optional<String> subSet,String compRule) throws InstantiationException, IllegalAccessException{
+		JsonCompare.compRule = (ComparisionRule) RuleConfig.getRule(compRule).newInstance();
 		return compare(
-				JsonParse.getJsonObject(superSet), 
-				JsonParse.getJsonObject(subSet));
+				JsonParse.getJsonObject(superSet).get(), 
+				JsonParse.getJsonObject(subSet).get());
 		
 	}
 	
@@ -77,8 +84,8 @@ public class JsonCompare {
 				//System.out.println(superSet.toString());
 				List<String> expectedResults = compare(superSet.get(key),subSet.get(key));
 				if(!expectedResults.isEmpty()) {
-					expectedResults.add(superSet.toString(2));
-					expectedResults.add(subSet.toString(2));
+					//expectedResults.add(superSet.toString(2));
+					//expectedResults.add(subSet.toString(2));
 					results.addAll(expectedResults);
 				}
 				
@@ -98,7 +105,7 @@ public class JsonCompare {
 		}else if(superSet instanceof JSONArray && subSet instanceof JSONArray) {
 			results.addAll(compare((JSONArray)superSet, (JSONArray)subSet));
 		}else {
-			if(!superSet.equals(subSet)) {
+			if(!compRule.compareData(superSet, subSet)) {
 				results.add("Expected "+subSet.toString()+" But received "+superSet.toString());
 			}
 		}
