@@ -2,14 +2,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Optional;
 
 import org.junit.Test;
 
 import com.my.json.compare.JsonCompare;
-import com.my.json.parse.JsonParse;
+import com.my.json.compare.rules.TypeRule;
+import com.my.json.compare.rules.ValueRule;
 
 import junit.framework.Assert;
 
@@ -28,7 +26,7 @@ public class JsonCompareTest {
 		Assert.assertTrue(JsonCompare.compare(
 				new File("src\\test\\resources\\superSet3.json"), 
 				new File("src\\test\\resources\\subSet3.json"),
-				"value").size()==0);
+				new ValueRule()).size()==0);
 	}
 	
 	@Test
@@ -36,7 +34,7 @@ public class JsonCompareTest {
 		Assert.assertTrue(JsonCompare.compare(
 				new File("src\\test\\resources\\superSetType.json"), 
 				new File("src\\test\\resources\\subSetType.json"),
-				"type").size()==0);
+				new TypeRule()).size()==0);
 	}
 	
 }

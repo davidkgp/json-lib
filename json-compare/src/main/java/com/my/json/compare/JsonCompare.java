@@ -12,7 +12,7 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.my.json.compare.rules.RuleConfig;
+import com.my.json.compare.rules.ValueRule;
 import com.my.json.compare.rules.interfaces.ComparisionRule;
 import com.my.json.parse.JsonHelper;
 import com.my.json.parse.JsonParse;
@@ -22,16 +22,16 @@ public class JsonCompare {
 	private static ComparisionRule compRule;
 	
 	
-	public static List<String> compare(File superSet,File subSet,String compRule) throws MalformedURLException, IOException, URISyntaxException, InstantiationException, IllegalAccessException{
-		JsonCompare.compRule = (ComparisionRule) RuleConfig.getRule(compRule).newInstance();
+	public static List<String> compare(File superSet,File subSet,ComparisionRule compRule) throws MalformedURLException, IOException, URISyntaxException, InstantiationException, IllegalAccessException{
+		JsonCompare.compRule = compRule!=null?compRule:new ValueRule();
 		return compare(
 				JsonParse.getJsonObject(JsonHelper.getFileContent(superSet)).get(), 
 				JsonParse.getJsonObject(JsonHelper.getFileContent(subSet)).get());
 		
 	}
 	
-	public static List<String> compare(Optional<String> superSet,Optional<String> subSet,String compRule) throws InstantiationException, IllegalAccessException{
-		JsonCompare.compRule = (ComparisionRule) RuleConfig.getRule(compRule).newInstance();
+	public static List<String> compare(Optional<String> superSet,Optional<String> subSet,ComparisionRule compRule) throws InstantiationException, IllegalAccessException{
+		JsonCompare.compRule = compRule!=null?compRule:new ValueRule();
 		return compare(
 				JsonParse.getJsonObject(superSet).get(), 
 				JsonParse.getJsonObject(subSet).get());
