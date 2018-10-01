@@ -30,7 +30,7 @@ public class JsonCompare {
 		
 	}
 	
-	public static List<String> compare(Optional<String> superSet,Optional<String> subSet,ComparisionRule compRule) throws InstantiationException, IllegalAccessException{
+	public static List<String> compare(Optional<String> superSet,Optional<String> subSet,ComparisionRule compRule){
 		JsonCompare.compRule = compRule!=null?compRule:new ValueRule();
 		return compare(
 				JsonParse.getJsonObject(superSet).get(), 
