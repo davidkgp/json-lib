@@ -15,6 +15,9 @@ public class JsonCompareTest {
 	
 	@Test
 	public void testJsonCompare() throws MalformedURLException, IOException, URISyntaxException, InstantiationException, IllegalAccessException {
+		JsonCompare.compare(
+				new File("src/test/resources/superSet2.json"), 
+				new File("src/test/resources/subSet2.json"),null).forEach(System.out::println);;
 		Assert.assertTrue(JsonCompare.compare(
 				new File("src/test/resources/superSet2.json"), 
 				new File("src/test/resources/subSet2.json"),

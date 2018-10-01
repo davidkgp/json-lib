@@ -70,7 +70,7 @@ public class JsonCompare {
 			}
 			
 		}
-		
+		appendErrors(superSet, subSet, results);
 		return results;
 	
 	}
@@ -81,11 +81,8 @@ public class JsonCompare {
 		
 		if(compare(superSet.keySet(),subSet.keySet())) {
 			subSet.keySet().stream().forEach(key->{
-				//System.out.println(superSet.toString());
 				List<String> expectedResults = compare(superSet.get(key),subSet.get(key));
 				if(!expectedResults.isEmpty()) {
-					//expectedResults.add(superSet.toString(2));
-					//expectedResults.add(subSet.toString(2));
 					results.addAll(expectedResults);
 				}
 				
@@ -116,6 +113,34 @@ public class JsonCompare {
 
 	public static boolean compare(Set superSet,Set subSet){
 		return superSet!=null?superSet.containsAll(subSet):false;
+	}
+	
+	private static void appendErrors(Object superSet,Object subSet,List<String> errors){
+		if(errors!=null && errors.size()>0) {
+			
+			if(superSet instanceof JSONObject && subSet instanceof JSONObject) {
+				
+				errors.add("======================Actual====================");
+				errors.add(((JSONObject)subSet).toString(2));
+				errors.add("======================Actual====================");
+				errors.add("======================Expected==================");
+				errors.add(((JSONObject)superSet).toString(2));
+				errors.add("======================Expected==================");
+			}else if(superSet instanceof JSONArray && subSet instanceof JSONArray) {
+				errors.add("======================Actual====================");
+				errors.add(((JSONArray)subSet).toString(2));
+				errors.add("======================Actual====================");
+				errors.add("======================Expected==================");
+				errors.add(((JSONArray)superSet).toString(2));
+				errors.add("======================Expected==================");
+			}/*else {
+				errors.add("======================Actual====================");
+				errors.add("======================Actual====================");
+				errors.add("======================Expected==================");
+				errors.add("======================Expected==================");
+			}*/
+			
+		}
 	}
 
 }
