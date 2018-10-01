@@ -25,16 +25,16 @@ public class JsonCompare {
 	public static List<String> compare(File superSet,File subSet,ComparisionRule compRule) throws MalformedURLException, IOException, URISyntaxException, InstantiationException, IllegalAccessException{
 		JsonCompare.compRule = compRule!=null?compRule:new ValueRule();
 		return compare(
-				JsonParse.getJsonObject(JsonHelper.getFileContent(superSet)).get(), 
-				JsonParse.getJsonObject(JsonHelper.getFileContent(subSet)).get());
+				JsonParse.getJsonObject(JsonHelper.getFileContent(superSet)).orElse(new JSONObject("{}")), 
+				JsonParse.getJsonObject(JsonHelper.getFileContent(subSet)).orElse(new JSONObject("{}")));
 		
 	}
 	
 	public static List<String> compare(Optional<String> superSet,Optional<String> subSet,ComparisionRule compRule){
 		JsonCompare.compRule = compRule!=null?compRule:new ValueRule();
 		return compare(
-				JsonParse.getJsonObject(superSet).get(), 
-				JsonParse.getJsonObject(subSet).get());
+				JsonParse.getJsonObject(superSet).orElse(new JSONObject("{}")), 
+				JsonParse.getJsonObject(subSet).orElse(new JSONObject("{}")));
 		
 	}
 	
@@ -87,6 +87,8 @@ public class JsonCompare {
 				}
 				
 			});
+		}else {
+			results.add("One of the input payload is empty or null");
 		}
 		
 		return results;
@@ -112,7 +114,7 @@ public class JsonCompare {
 	}
 
 	public static boolean compare(Set superSet,Set subSet){
-		return superSet!=null?superSet.containsAll(subSet):false;
+		return superSet!=null && superSet.size()>0 && subSet!=null && subSet.size()>0?superSet.containsAll(subSet):false;
 	}
 	
 	private static void appendErrors(Object superSet,Object subSet,List<String> errors){

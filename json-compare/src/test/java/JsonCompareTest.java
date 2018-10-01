@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -38,6 +39,34 @@ public class JsonCompareTest {
 				new File("src/test/resources/superSetType.json"), 
 				new File("src/test/resources/subSetType.json"),
 				new TypeRule()).size()==0);
+	}
+	
+	@Test
+	public void testJsonCompareSubsetNull() throws MalformedURLException, IOException, URISyntaxException, InstantiationException, IllegalAccessException {
+		Assert.assertTrue(JsonCompare.compare(
+				new File("src/test/resources/superSetType.json"), 
+				null,null).size()>0);
+	}
+	
+	@Test
+	public void testJsonCompareSuperSetNull() throws MalformedURLException, IOException, URISyntaxException, InstantiationException, IllegalAccessException {
+		Assert.assertTrue(JsonCompare.compare(
+				null, 
+				new File("src/test/resources/subSetType.json"),null).size()>0);
+	}
+	
+	@Test
+	public void testJsonCompareSubsetEmpty() throws MalformedURLException, IOException, URISyntaxException, InstantiationException, IllegalAccessException {
+		Assert.assertTrue(JsonCompare.compare(
+				Optional.ofNullable("{\"name\":\"John\",\"surname\":\"Doe\"}"), 
+				Optional.ofNullable("{}"),null).size()>0);
+	}
+	
+	@Test
+	public void testJsonCompareSuperSetEmpty() throws MalformedURLException, IOException, URISyntaxException, InstantiationException, IllegalAccessException {
+		Assert.assertTrue(JsonCompare.compare(
+				Optional.ofNullable("{}"), 
+				Optional.ofNullable("{\"name\":\"John\",\"surname\":\"Doe\"}"),null).size()>0);
 	}
 	
 }
