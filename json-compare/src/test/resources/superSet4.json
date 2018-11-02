@@ -1,0 +1,30 @@
+{
+  "firstName": "Mickey",
+  "lastName": "Mouse",
+  "bestFriends": [
+    {
+      "firstName": "Scooby",
+      "lastName": "Dooby",
+      "address": {
+        "addressLine1": "LA",
+        "addressLine2": "Hollywood"
+      }
+    },
+    {
+      "firstName": "Jino",
+      "lastName": "Mukhura",
+      "address": {
+        "addressLine1": "LA",
+        "addressLine2": "Hollywood"
+      }
+    },
+    {
+      "firstName": "Daphne",
+      "lastName": "Helga",
+      "address": {
+        "addressLine1": "LA",
+        "addressLine2": "Hollywood"
+      }
+    }
+  ]
+}

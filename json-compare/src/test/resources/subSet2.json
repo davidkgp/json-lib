@@ -29,11 +29,11 @@
 	},
 	"labParterDetails": {
 		
-		"labPartner1": {
+		"labPartner2": {
 			"firstName": "Sanan",
 			"lastName": "Prakash",
 			"address": {
-				"addressLine1": "Hoogly",
+				"addressLine1": "Hoogly1",
 				"addressLine2": "West Bengal"
 			}
 		}
