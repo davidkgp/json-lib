@@ -1,20 +1,15 @@
 package com.my.json.parse;
 
-import java.util.Optional;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.internal.JsonContext;
 
-import org.json.JSONObject;
+import java.util.Optional;
 
 public class JsonParse {
 
-	public static Optional<JSONObject> getJsonObject(Optional<String> jsonString) {
+	public static  Optional<JsonContext> getJsonObject(Optional<String> jsonString) {
 
-		try {
-			return jsonString.map(jsonStringValue -> new JSONObject(jsonString.get()));
-
-		} catch (Exception excep) {
-			excep.printStackTrace();
-		}
-		return Optional.empty();
+		return JsonParseException.wrap(()->jsonString.map(jsonStringVal->(JsonContext)JsonPath.parse(jsonStringVal)),Constants.UNEXPECTED_EXCEPTION);
 
 	}
 

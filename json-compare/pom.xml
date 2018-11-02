@@ -10,8 +10,8 @@
 	<artifactId>json-compare</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
